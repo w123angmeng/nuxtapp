@@ -20,7 +20,7 @@
 </template>
 <style scoped>
 .newsDetailWrap{
-    width: 800px;
+    width: 1000px;
     height: 600px;
 }
 </style>
