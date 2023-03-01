@@ -1,5 +1,6 @@
 <template>
 <NuxtLayout name="other">
+    <Title>其他页面</Title>
     <template #header> 其他页面</template>
     <div class="studyWrap">
         <NewsList />
