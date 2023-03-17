@@ -12,6 +12,7 @@
     "nuxt": "^3.2.2"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^5.13.6",
     "consola": "^2.15.3",
     "element-plus": "^2.2.32",
     "ofetch": "^1.0.1",

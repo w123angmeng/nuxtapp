@@ -1,19 +1,15 @@
 <template>
-<!-- <Header />
-<Breadcrumb />
-<NewsList />
-<NewsDetail /> -->
-<NuxtLayout name="default">
-    <Title>首页</Title>
-    <template #header> 一些标题模板内容。 </template>
-    <div class="contWrap">
-        <div class="lWrap">
-            {{data}}
-            这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述
-        </div>
-        <el-card class="box-card rWrap">
-        <el-divider content-position="left">表单</el-divider>
-        <!-- <el-form
+    <NuxtLayout name="default">
+        <Title>首页</Title>
+        <template #header> 一些标题模板内容。 </template>
+        <div class="contWrap">
+            <div class="lWrap">
+                {{ip}}
+                这{{ip}}是{{count}}一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述这是一段文字描述
+            </div>
+            <el-card class="box-card rWrap">
+                <el-divider content-position="left">表单</el-divider>
+                <el-form
     ref="ruleFormRef"
     :model="ruleForm"
     status-icon
@@ -39,29 +35,48 @@
       >
       <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
     </el-form-item>
-  </el-form> -->
-  </el-card>
-    </div>
-</NuxtLayout>
-  首页
+  </el-form>
+            </el-card>
+        </div>
+    </NuxtLayout>
+    首页
 </template>
-<script setup>
-const { data } = await useAsyncData('hello', () => $fetch('/api/hello'))
-// export default {
-//   layout: false,
-//   data(){
-//     return {
-//        ruleForm: {
-//         pass: '',
-//         checkPass: '',
-//         age: ''
-//        },
-//        rules: [
 
-//        ]
-//     }
-//   }
-// }
+
+<script>
+// const { data: count } = await useFetch('/api/financial/getPaymentScheduleList',{method: 'post'})
+export default defineNuxtComponent({
+  layout: false,
+  data(){
+    return {
+       ruleForm: {
+        pass: '',
+        checkPass: '',
+        age: ''
+       },
+       rules: [
+
+       ]
+    }
+  },
+  fetchKey: 'ip',
+  async asyncData({ query, $axios }) {
+    return {
+        ip: await $fetch('http://icanhazip.com')
+    }
+  },
+  mounted() {
+    console.log('mounted====ip:',this.ip, 'count:', this.count)
+    // this.$axios.post("/sapi/api/financial/getPaymentScheduleList", params).then((res) => {
+    //     console.log('asyncData2：', res)
+    //     data = res
+    // });
+  },
+  updated() {
+    console.log('updated====ip:',this.ip, 'count:', this.count)
+  }
+
+})
 </script>
 
 
@@ -72,7 +87,7 @@ const { data } = await useAsyncData('hello', () => $fetch('/api/hello'))
     display: flex;
     justify-content: space-between;
 }
-.lWrap{
+.lWrap {
     width: 400px;
 }
 .rWrap {
