@@ -9,7 +9,7 @@
   >
     <el-menu-item index="/">LOGO</el-menu-item>
     <div class="flex-grow" />
-    <el-menu-item index="/">发现研究</el-menu-item>
+    <el-menu-item index="/calendar">日历</el-menu-item>
     <el-sub-menu index="/studyDetail">
       <template #title>关于研究</template>
       <el-menu-item index="/studyDetail">研究相关</el-menu-item>
