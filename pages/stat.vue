@@ -5,12 +5,15 @@
             <div class="type-wrap">
                 <div></div>
                 <el-radio-group v-model="type" size="small">
-                    <el-radio-button label="日" />
+                    <el-radio-button label="周" />
                     <el-radio-button label="月" />
                     <el-radio-button label="年" />
                 </el-radio-group>
             </div>
-            <el-calendar v-model="value" v-if="type == '日'">
+            <div v-if="type == '周'">
+                <div id="myMap" ref="myMap" style="width:300px;height:300px"></div>
+            </div>
+            <el-calendar v-model="value" v-if="type == '周'">
                 <template #date-cell="{ data }">
                     <!-- <p :class="data.isSelected ? 'is-selected' : ''">
                         {{ data.day.split('-').slice(1).join('-') }}
@@ -105,150 +108,42 @@
     </NuxtLayout>
 </template>
 
-<script setup>
-    import {
-        ref
-    } from 'vue'
-    const value = ref(new Date())
-    const list = [{
-            id: '1',
-            task: '任务一'
-        },
-        {
-            id: '2',
-            task: '任务二'
-        }
-    ]
-</script>
-<script>
-    // const { data: count } = await useFetch('/api/financial/getPaymentScheduleList',{method: 'post'})
-    export default defineNuxtComponent({
-        layout: false,
-        data() {
-            return {
-                type: '日',
-                editShow: false,
-                form: {
-                    tasks: [{
-                        id: '',
-                        name: ''
-                    }],
-                    type: '1',
-                    mood: '9',
-                },
-                tableHeaders: ['一', '二', '三', '四', '五', '六', '七' , '八', '九', '十', '十一', '十二'],
-                tableData: [{
-                    0: [
-                        {
-                         name: '任务一',
-                         type: '1'
-                        },
-                        {
-                         name: '任务二',
-                         type: '2'
-                        },
-                        {
-                         name: '任务三',
-                         type: '3'
-                        }
-                    ],
-                   1: [
-                        {
-                         name: '任务一21',
-                         type: '1'
-                        },
-                        {
-                         name: '任务二21',
-                         type: '2'
-                        },
-                        {
-                         name: '任务三21',
-                         type: '3'
-                        }
-                    ]
-                }],
-                tableData1: [{
-                    year: '2023',
-                    0: [
-                        {
-                         name: '任务一',
-                         type: '1'
-                        },
-                        {
-                         name: '任务二',
-                         type: '2'
-                        },
-                        {
-                         name: '任务三',
-                         type: '3'
-                        }
-                    ],
-                   1: [
-                        {
-                         name: '任务一21',
-                         type: '1'
-                        },
-                        {
-                         name: '任务二21',
-                         type: '2'
-                        },
-                        {
-                         name: '任务三21',
-                         type: '3'
-                        }
-                    ]
-                }]
-            }
-        },
-        fetchKey: 'ip',
-        async asyncData({
-            query,
-            $axios
-        }) {
-            return {
-                ip: await $fetch('http://icanhazip.com')
-            }
-        },
-        methods: {
-            btnClickEdit(data) {
-                console.log('点击:', data)
-                this.editShow = true
-            },
-            addTask() {
-                this.form.tasks.push({
-                    id: '',
-                    name: ''
-                })
-            },
-            delTask(index) {
-                this.form.tasks.splice(index,1)
-            },
-            saveTask() {
-                let param = this.form.tasks.map(i => {
-                    let item = {
-                        type: this.form.type,
-                        ...i
+<script lang="ts" setup>
+const { $eChart } = useNuxtApp()
+const myMap = ref<HTMLElement>()
+onMounted(() => {
+    // const myChart = $eChart.init(myMap.value!);
+    const myChart = $eChart.init(document.getElementById('myMap'));
+    
+    // 指定图表的配置项和数据
+    const option = {
+        series: [
+            {
+                name: '饼图',
+                type: 'pie',
+                radius: '50%',
+                data: [
+                    { value: 1048, name: '河南' },
+                    { value: 735, name: '河北' },
+                    { value: 580, name: '江西' },
+                    { value: 484, name: '湖南' },
+                    { value: 300, name: '湖北' }
+                ],
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
                     }
-                    return item
-                })
-                console.log('保存：', param)
-                // editShow = false
+                }
             }
-        },
-
-        mounted() {
-            console.log('mounted====ip:', this.ip, 'count:', this.count)
-            // this.$axios.post("/sapi/api/financial/getPaymentScheduleList", params).then((res) => {
-            //     console.log('asyncData2：', res)
-            //     data = res
-            // });
-        },
-        updated() {
-            console.log('updated====ip:', this.ip, 'count:', this.count)
-        }
-
-    })
-</script>
+        ]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+})
+ 
+</script> 
 
 
 
