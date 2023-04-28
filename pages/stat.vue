@@ -1,6 +1,6 @@
 <template>
     <NuxtLayout name="default">
-        <Title>我的日历</Title>
+        <Title>统计数据</Title>
         <div class="">
             <div class="type-wrap">
                 <div></div>
